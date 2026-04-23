@@ -1,34 +1,20 @@
-# Dokumentasi Code & Analogi Segitiga
+# TRIANGLE-TUGAS
 
-Dokumen ini memuat penjelasan sederhana menggunakan analogi bagaimana kode Python (turtle) bisa menghasilkan bangun 2D dan 3D di layar monitor Anda.
-
----
+Proyek ini memuat penyelesaian kodingan bahasa Python untuk menggambar bangun segitiga 2D dan segitiga ilusi 3D (limas) dengan antarmuka grafis menggunakan pustaka bawaan `turtle`.
 
 ## 1. Segitiga 2D (`triangle.py`)
 
-**Analogi Sederhana:**
+File ini bertugas membuat gambar segitiga sama sisi yang presisi di atas Canvas. Logika pemrograman di baliknya dilakukan dengan perputaran sudut dinamis:
 
-Bayangkan Anda sedang berdiri di tengah lapangan luas sambil memegang kapur lonceng yang menempel ke tanah. 
-1. Anda berjalan lurus lurus ke depan sejauh 400 langkah. Jejak putih panjang pun tertinggal di tanah.
-2. Setelah itu, Anda tidak boleh mundur. Anda memutar tubuh (belok serong) persis ke arah kiri sejauh **120 derajat**.
-3. Dari posisi tersebut, Anda berjalan lurus lagi sejauh 400 langkah.
-4. Terakhir, Anda berputar lagi ke kiri, lalu berjalan lurus lagi 400 langkah.
-
-Tiba-tiba, Anda menyadari bahwa Anda sudah kembali ke titik tempat Anda memulainya! Garis jejak sepatu Anda di lapangan kini  membentuk **segitiga sama sisi yang sangat sempurna**. 
-
-Itulah persisnya yang diinstruksikan oleh program ke *Turtle* (kura-kura/pena komputer) agar menggambar ke layar (*Canvas*).
-
----
+- Komputer diinstruksikan untuk menjalankan fungsi *loop* perulangan `for _ in range(3):` (diseksekusi konstan sebanyak tiga kali berurutan).
+- `t.forward(400)`: Pada setiap perulangan, ditarik garis lurus maju sepanjang 400 piksel dari posisi saat itu.
+- `t.left(120)`: Garis tersebut kemudian dibelokan tajam 120 derajat ke arah kiri. Sudut 120 derajat dipakai karena keliling bentuk luarnya bila dijumlah akan setara dengan total rotasi (3 * 120 = 360).
+- Sehingga secara otomatis, tiga tarikan garis itu saling mengiris satu dan lainnya menyusul menjadi bangunan tertutup bertitik sudut 60 derajat di dalamnya (segitiga sama sisi murni).
 
 ## 2. Segitiga 3D (`triangle_3d.py`)
 
-**Analogi Sederhana:**
+File ini menampilkan proyeksi visual limas segitiga (bervolume 3D) namun direpresentasikan pada media Canvas 2D. Logika di baliknya memanfaatkan koordinat spasial (*Spatial X-Y coordinates*):
 
-Pernahkah Anda menggambar kubus, piramida, atau atap rumah di buku tulis? Kertasnya sangat datar (2 dimensi), tetapi gambar yang Anda buat "terlihat" memiliki ruang dan menonjol (3 dimensi). 
-
-Pada program `triangle_3d.py`, kita melakukan hal yang murni serupa: **ilusi optik manusia saja**.
-
-1. Kita menyuruh komputer menggambar bentuk layang-layang miring di sebelah **kiri**, lalu mengecatnya dengan warna biru cerah seolah-olah sisi tersebut sedang **terkena sinar lampu/matahari**.
-2. Kemudian, kita menyambungkan bentuk layang-layang kedua tepat menempel di sebelah **kanannya**, namun dicat dengan warna biru gelap agar terlihat seperti sedang **berada di area bayangan tak tersinari**.
-
-Otak dan mata kita secara insting saat melihat paduan sudut miring dan gradasi bayangan ini akan memprosesnya ("tertipu") sehingga melihatnya bukan lagi sebagai kumpulan garis di layar datar, melainkan sebuah bentuk limas / piramida 3D yang timbul dari dalam layar.
+- **Pemetaan Diagonal Bidang 1 (Sisi Kiri)**: Menggunakan alur statis `goto()` dari titik pucuk sentral di atas `(0, 300)` lalu meluncur ke sudut minus kiri `(-200, -100)` dan berakhir meruncing di dasar tengah `(0, -180)` sebelum menutup ke atas. Area blok ini dicat penuh dengan warna biru terang (`blue`) sebagai parameter pencahayaan semu frontal.
+- **Pemetaan Diagonal Bidang 2 (Sisi Kanan)**: Alur pantulan meniru sisi sebelumnya, diawali di titik yang persis sejajar namun dimiringkan berlawanan menjorok ke positif kanan bawah `(200, -100)`, memusat ke dasar yang sama. Area blok tertutup ini lalu dicerap warna biru tua/gelap (`darkblue`) untuk menduplikasi efek *shading* bayangan.
+- Pertemuan gabungan dua balok warna ini dalam pandangan mata mengunci presisi ilusi sebuah bangun yang mencuat timbul menyerupai 3 dimensi padat.
